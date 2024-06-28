@@ -22,10 +22,21 @@ app.get("/api/hello",  (req, res) => {
   res.json({greeting: 'hello API'});
 });
 
-//Timestamp code
-app.get("/api/:time", (req,res) => {  
-  res.json(checkFormat(req.params.time))
+//Timestamp code - Request
+app.get("/api/:date", (req,res) => {  
+  const input = checkFormat(req.params.date)
+  res.json(input)
 })
+
+//Timestamp code - Blank request
+app.get("/api", (req,res) => {
+  const date = new Date;
+  res.json({
+    "unix" : date.getTime(),
+    "utc" : date.toUTCString()
+  })
+})
+
 
 
 // Listen on port set in environment constiable or default to 3000
